@@ -1,0 +1,16 @@
+# Prevent MultiViews from interfering with routing
+Options -MultiViews
+
+# Enable the rewrite engine
+RewriteEngine On
+
+# Allow access to sitemap.xml, robots.txt, and other static files
+RewriteCond %{REQUEST_URI} ^/(sitemap\.xml|robots\.txt) [NC]
+RewriteRule ^ - [L]
+
+# Check if the requested file or directory exists
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Rewrite everything else to index.html (for SPA)
+RewriteRule ^ index.html [QSA,L]
